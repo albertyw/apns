@@ -7,6 +7,7 @@ module APNS
   @port = 2195
   # openssl pkcs12 -in mycert.p12 -out client-cert.pem -nodes -clcerts
   @pem = nil # this should be the path of the pem file not the contents
+  @pem_contents = nil # Contents of pem file
   @pass = nil
 
   class << self
@@ -62,7 +63,11 @@ module APNS
   end
 
   def self.pem_content
-    @pem_content || read_pem
+    if pem.is_a? Proc
+      pem.call
+    else
+      @pem_content || read_pem
+    end
   end
 
   protected
