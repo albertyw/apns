@@ -62,7 +62,11 @@ module APNS
   end
 
   def self.pem_content
-    @pem_content || read_pem
+    if pem.is_a? Proc
+      pem.call
+    else
+      @pem_content || read_pem
+    end
   end
 
   protected
