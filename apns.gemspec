@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.date = %q{2015-03-09}
   s.description = <<DESC
 Simple Apple push notification service gem.
-It supports the 3rd wire format (command 2) with support for content-availible (Newsstand), expiration dates and delivery priority (background pushes)}
+It supports the 3rd wire format (command 2) with support for content-availible (Newsstand), expiration dates and delivery priority (background pushes)
 DESC
 
   s.email = ["jpoz@jpoz.net", "thomas@kollba.ch", "samujjal@cellabus.com", "albert@cellabus.com"]
