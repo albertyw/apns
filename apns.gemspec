@@ -22,5 +22,6 @@ DESC
   s.summary = %q{Simple Apple push notification service gem}
 
   s.add_development_dependency 'rspec'
+  s.add_development_dependency 'codeclimate-test-reporter'
 
 end
