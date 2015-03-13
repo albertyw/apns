@@ -24,9 +24,7 @@ module APNS
 
     packed_nofications = self.packed_nofications(notifications)
 
-    notifications.each do |n|
-      ssl.write(packed_nofications)
-    end
+    ssl.write(packed_nofications)
 
     ssl.close
     sock.close
@@ -36,11 +34,7 @@ module APNS
     bytes = ''
 
     notifications.each do |notification|
-      # Each notification frame consists of
-      # 1. (e.g. protocol version) 2 (unsigned char [1 byte])
-      # 2. size of the full frame (unsigend int [4 byte], big endian)
-      pn = notification.packaged_notification
-      bytes << ([2, pn.bytesize].pack('CN') + pn)
+      bytes << notification.packaged_notification
     end
 
     bytes
