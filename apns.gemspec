@@ -16,7 +16,7 @@ DESC
   s.email = ["jpoz@jpoz.net", "thomas@kollba.ch", "samujjal@cellabus.com", "albert@cellabus.com"]
   s.extra_rdoc_files = ["MIT-LICENSE"]
   s.files = ["MIT-LICENSE", "README.textile", "Rakefile", "lib/apns", "lib/apns/core.rb", "lib/apns/notification.rb", "lib/apns.rb"]
-  s.homepage = %q{http://github.com/jpoz/apns}
+  s.homepage = %q{http://github.com/cellabus/apns}
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.5}
   s.summary = %q{Simple Apple push notification service gem}
