@@ -15,7 +15,7 @@ describe APNS::Notification do
   
   it "should have a priority if content_availible is set"  do
     n = APNS::Notification.new('device_token', {:content_available => true})
-    n.content_available.should be_true
+    n.content_available.should be_truthy
     n.priority.should eql(5)
   end
 
@@ -48,7 +48,7 @@ describe APNS::Notification do
   describe '#packaged_notification' do
     it "should package the token" do
       n = APNS::Notification.new('device_token', {:alert => 'Hello iPhone', :badge => 3, :sound => 'awesome.caf'})
-      n.stub!(:message_identifier).and_return('aaaa') # make sure the message_identifier is not random
+      expect(n).to receive(:message_identifier).and_return('aaaa') # make sure the message_identifier is not random
       Base64.encode64(n.packaged_notification).should == "AgAAAF4BAAbe8s79hOcCAEB7ImFwcyI6eyJhbGVydCI6IkhlbGxvIGlQaG9u\nZSIsImJhZGdlIjozLCJzb3VuZCI6ImF3ZXNvbWUuY2FmIn19AwAEYWFhYQQA\nBAAAAAAFAAEK\n"
     end
   end

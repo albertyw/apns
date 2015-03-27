@@ -13,7 +13,7 @@ describe APNS do
     end
     it "can read pem_content from a file" do
       APNS.pem = 'file'
-      APNS.stub!(:read_pem).and_return('qwer')
+      expect(APNS).to receive(:read_pem).and_return('qwer')
       APNS.pem_content.should eq 'qwer'
     end
     it "can read pem_content from a Proc" do
