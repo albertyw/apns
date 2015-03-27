@@ -1,6 +1,7 @@
 h1. APNS
 
 "!https://codeship.com/projects/f82aae80-a8da-0132-7fad-6a1e26e67d79/status?branch=master!":https://codeship.com/projects/67530
+!https://gemnasium.com/cellabus/apns.svg(Dependency Status)!:https://gemnasium.com/cellabus/apns
 "!https://codeclimate.com/github/cellabus/apns/badges/gpa.svg!":https://codeclimate.com/github/cellabus/apns
 "!https://codeclimate.com/github/cellabus/apns/badges/coverage.svg!":https://codeclimate.com/github/cellabus/apns
 
