@@ -5,13 +5,14 @@ module APNS
 
   @host = 'gateway.sandbox.push.apple.com'
   @port = 2195
+  @feedback_port = 2196
   # openssl pkcs12 -in mycert.p12 -out client-cert.pem -nodes -clcerts
   @pem = nil # this should be the path of the pem file not the contents
   @pem_contents = nil # Contents of pem file
   @pass = nil
 
   class << self
-    attr_accessor :host, :pem, :pem_content, :port, :pass
+    attr_accessor :host, :pem, :pem_content, :port, :feedback_port, :pass
   end
 
   def self.send_notification(device_token, message)
@@ -93,7 +94,7 @@ module APNS
     fhost = self.host.gsub('gateway','feedback')
     puts fhost
 
-    sock         = TCPSocket.new(fhost, 2196)
+    sock         = TCPSocket.new(fhost, self.feedback_port)
     ssl          = OpenSSL::SSL::SSLSocket.new(sock,context)
     ssl.connect
 
