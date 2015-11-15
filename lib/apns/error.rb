@@ -16,15 +16,16 @@ module APNS
   class Error < RuntimeError
   end
 
-  def self.check_error error_code
+  def self.check_error error_code, notification
     error_code = error_code.to_i
     if error_code == 0
       return
     else
+      device = notification.device_token
       if APNS::ERROR_CODES.include? error_code
-        raise APNS::Error, APNS::ERROR_CODES[error_code]
+        raise APNS::Error, "#{APNS::ERROR_CODES[error_code]} for #{device}"
       else
-        raise APNS::Error, 'Unknown error code'
+        raise APNS::Error, "Unknown error code for #{device}"
       end
     end
   end
