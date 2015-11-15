@@ -23,8 +23,6 @@ module APNS
   end
 
   def self.send_notifications(notifications)
-    error = 0
-    idx = 0
     sock, ssl = open_connection
 
     # prepares the messages to be sent
@@ -38,18 +36,12 @@ module APNS
     # Send the notifications
     ssl.write(packed_notifications)
 
-    # if we get and error
-    if IO.select([ssl], nil, nil, TIMEOUT)
-      if buffer = ssl.read(6)
-        _, error_code, idx = buffer.unpack('CCN')
-        error = error_code.to_i
-      end
+    begin
+      process_notification_response ssl, notifications
+    ensure
+      ssl.close
+      sock.close
     end
-
-    ssl.close
-    sock.close
-
-    return error, idx
   end
 
   def self.pack_notifications(notifications)
@@ -87,6 +79,18 @@ module APNS
   end
 
   protected
+
+  def self.process_notification_response ssl, notifications
+    # if we get and error
+    if IO.select([ssl], nil, nil, TIMEOUT)
+      if buffer = ssl.read(6)
+        _, error_code, idx = buffer.unpack('CCN')
+        error = error_code.to_i
+        error_notification = notifications[idx.to_i]
+        APNS.check_error error, error_notification
+      end
+    end
+  end
 
   def self.read_pem
     fail "The path to your pem file is not set. (APNS.pem = /path/to/cert.pem)" unless pem
