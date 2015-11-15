@@ -1,9 +1,9 @@
 module APNS
-  require 'socket'
-  require 'openssl'
-  require 'json'
+  require "socket"
+  require "openssl"
+  require "json"
 
-  @host = 'gateway.sandbox.push.apple.com'
+  @host = "gateway.sandbox.push.apple.com"
   @port = 2195
   @feedback_port = 2196
   # openssl pkcs12 -in mycert.p12 -out client-cert.pem -nodes -clcerts
@@ -17,11 +17,11 @@ module APNS
 
   def self.send_notification(device_token, message)
     n = APNS::Notification.new(device_token, message)
-    self.send_notifications([n])
+    send_notifications([n])
   end
 
   def self.send_notifications(notifications)
-    sock, ssl = self.open_connection
+    sock, ssl = open_connection
 
     packed_nofications = self.packed_nofications(notifications)
 
@@ -32,7 +32,7 @@ module APNS
   end
 
   def self.packed_nofications(notifications)
-    bytes = ''
+    bytes = ""
 
     notifications.each do |notification|
       bytes << notification.packaged_notification
@@ -42,19 +42,19 @@ module APNS
   end
 
   def self.feedback
-    sock, ssl = self.feedback_connection
+    sock, ssl = feedback_connection
 
     apns_feedback = []
 
     while message = ssl.read(38)
-      timestamp, token_size, token = message.unpack('N1n1H*')
+      timestamp, token_size, token = message.unpack("N1n1H*")
       apns_feedback << [Time.at(timestamp), token]
     end
 
     ssl.close
     sock.close
 
-    return apns_feedback
+    apns_feedback
   end
 
   def self.pem_content
@@ -68,8 +68,8 @@ module APNS
   protected
 
   def self.read_pem
-    raise "The path to your pem file is not set. (APNS.pem = /path/to/cert.pem)" unless pem
-    raise "The path to your pem file does not exist!" unless File.exist?(pem)
+    fail "The path to your pem file is not set. (APNS.pem = /path/to/cert.pem)" unless pem
+    fail "The path to your pem file does not exist!" unless File.exist?(pem)
 
     File.read pem
   end
@@ -77,26 +77,26 @@ module APNS
   def self.open_connection
     context      = OpenSSL::SSL::SSLContext.new
     context.cert = OpenSSL::X509::Certificate.new(pem_content)
-    context.key  = OpenSSL::PKey::RSA.new(pem_content, self.pass)
+    context.key  = OpenSSL::PKey::RSA.new(pem_content, pass)
 
-    sock         = TCPSocket.new(self.host, self.port)
-    ssl          = OpenSSL::SSL::SSLSocket.new(sock,context)
+    sock         = TCPSocket.new(host, port)
+    ssl          = OpenSSL::SSL::SSLSocket.new(sock, context)
     ssl.connect
 
-    return sock, ssl
+    [sock, ssl]
   end
 
   def self.feedback_connection
     context      = OpenSSL::SSL::SSLContext.new
     context.cert = OpenSSL::X509::Certificate.new(pem_content)
-    context.key  = OpenSSL::PKey::RSA.new(pem_content, self.pass)
+    context.key  = OpenSSL::PKey::RSA.new(pem_content, pass)
 
-    fhost = self.host.gsub('gateway','feedback')
+    fhost = host.gsub("gateway", "feedback")
 
-    sock         = TCPSocket.new(fhost, self.feedback_port)
-    ssl          = OpenSSL::SSL::SSLSocket.new(sock,context)
+    sock         = TCPSocket.new(fhost, feedback_port)
+    ssl          = OpenSSL::SSL::SSLSocket.new(sock, context)
     ssl.connect
 
-    return sock, ssl
+    [sock, ssl]
   end
 end

@@ -1,2 +1,2 @@
-require 'apns/core'
-require 'apns/notification'
+require "apns/core"
+require "apns/notification"

@@ -1,13 +1,13 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{apns}
+  s.name = "apns"
   s.version = "1.2.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["James Pozdena", "Thomas Kollbach", "Samujjal Purkayastha", "Albert Wang"]
-  s.autorequire = %q{apns}
-  s.date = %q{2015-03-13}
+  s.autorequire = "apns"
+  s.date = "2015-03-13"
   s.description = <<DESC
 Simple Apple push notification service gem.
 It supports the 3rd wire format (command 2) with support for content-availible (Newsstand), expiration dates and delivery priority (background pushes)
@@ -16,12 +16,11 @@ DESC
   s.email = ["jpoz@jpoz.net", "thomas@kollba.ch", "samujjal@cellabus.com", "albert@cellabus.com"]
   s.extra_rdoc_files = ["MIT-LICENSE"]
   s.files = ["MIT-LICENSE", "README.textile", "Rakefile", "lib/apns", "lib/apns/core.rb", "lib/apns/notification.rb", "lib/apns.rb"]
-  s.homepage = %q{http://github.com/cellabus/apns}
+  s.homepage = "http://github.com/cellabus/apns"
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.5}
-  s.summary = %q{Simple Apple push notification service gem}
+  s.rubygems_version = "1.3.5"
+  s.summary = "Simple Apple push notification service gem"
 
-  s.add_development_dependency 'rspec'
-  s.add_development_dependency 'codeclimate-test-reporter'
-
+  s.add_development_dependency "rspec"
+  s.add_development_dependency "codeclimate-test-reporter"
 end
