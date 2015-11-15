@@ -1,8 +1,12 @@
 # -*- encoding: utf-8 -*-
 
+lib = File.expand_path("../lib", __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require "apns/version"
+
 Gem::Specification.new do |s|
   s.name = "apns"
-  s.version = "1.2.1"
+  s.version = APNS::VERSION
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["James Pozdena", "Thomas Kollbach", "Samujjal Purkayastha", "Albert Wang"]
