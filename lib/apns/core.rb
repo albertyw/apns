@@ -81,7 +81,6 @@ module APNS
   protected
 
   def self.process_notification_response ssl, notifications
-    # if we get and error
     if IO.select([ssl], nil, nil, TIMEOUT)
       if buffer = ssl.read(6)
         _, error_code, idx = buffer.unpack('CCN')
