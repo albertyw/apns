@@ -14,9 +14,10 @@ describe APNS do
     end
 
     it 'sets message_identifier' do
-      expect(APNS).to receive(:process_notification_response)
-      APNS.send_notifications notifications
+      expect(APNS).to receive(:process_notification_response).and_return(['0', 'asdf'])
+      result = APNS.send_notifications notifications
       expect(notifications[0].message_identifier).to be
+      expect(result).to eq ['0', 'asdf']
     end
     it 'will still close socket if it raises error' do
       expect(APNS).to receive(:process_notification_response).and_raise APNS::Error
@@ -31,10 +32,12 @@ describe APNS do
     it 'will read the error and send to .check_error' do
       expect(IO).to receive(:select).and_return true
       buffer = double(:buffer)
-      expect(buffer).to receive(:unpack).and_return(['x', '5', '0'])
+      expect(buffer).to receive(:unpack).and_return(['8', '5', '0'])
       expect(ssl).to receive(:read).and_return buffer
       expect(APNS).to receive(:check_error).with(5, notifications[0])
-      APNS.process_notification_response ssl, notifications
+      error_code, idx = APNS.process_notification_response ssl, notifications
+      expect(error_code).to eq '5'
+      expect(idx).to eq '0'
     end
     it 'will skip if there is no response' do
       expect(IO).to receive(:select).and_return false

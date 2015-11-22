@@ -36,12 +36,14 @@ module APNS
     # Send the notifications
     ssl.write(packed_notifications)
 
+    result = nil
     begin
-      process_notification_response ssl, notifications
+      result = process_notification_response ssl, notifications
     ensure
       ssl.close
       sock.close
     end
+    result
   end
 
   def self.pack_notifications(notifications)
@@ -87,6 +89,7 @@ module APNS
         error = error_code.to_i
         error_notification = notifications[idx.to_i]
         APNS.check_error error, error_notification
+        return [error_code, idx]
       end
     end
   end
