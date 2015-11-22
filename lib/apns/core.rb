@@ -3,7 +3,7 @@ module APNS
   require "openssl"
   require "json"
 
-  TIMEOUT = 0.2
+  TIMEOUT = 1
 
   @host = "gateway.sandbox.push.apple.com"
   @port = 2195
