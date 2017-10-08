@@ -1,6 +1,3 @@
-require "codeclimate-test-reporter"
-CodeClimate::TestReporter.start
-
 require "rubygems"
 gem "rspec", ">= 1.2.8"
 require "rspec"
