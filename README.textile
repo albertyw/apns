@@ -1,6 +1,6 @@
 h1. APNS
 
-"!https://app.codeship.com/projects/8d844280-8de4-0135-0e5e-0237abf0d3c1/status?branch=master!":https://app.codeship.com/projects/249723
+"!https://drone.albertyw.com/api/badges/albertyw/apns/status.svg!":https://drone.albertyw.com/albertyw/apns
 !https://gemnasium.com/albertyw/apns.svg(Dependency Status)!:https://gemnasium.com/albertyw/apns
 "!https://codeclimate.com/github/albertyw/apns/badges/gpa.svg!":https://codeclimate.com/github/albertyw/apns
 "!https://codeclimate.com/github/albertyw/apns/badges/coverage.svg!":https://codeclimate.com/github/albertyw/apns
