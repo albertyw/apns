@@ -1,0 +1,16 @@
+kind: pipeline
+type: docker
+name: test
+
+steps:
+  - name: Test Ruby
+    image: ruby:3
+    commands:
+      - bundle install
+      - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > "${HOME}/bin/cc-test-reporter"
+      - chmod +x "${HOME}/bin/cc-test-reporter"
+      - cc-test-reporter before-build
+      - rspec
+      - cc-test-reporter after-build --exit-code $? --prefix /home/rof/src/github.com/albertyw/apns
+    environment:
+      CC_TEST_REPORTER_ID: 61b54a87e7ae1d57dc248b8f48b8a66b022f7444a3c5721bf1df06ed1b148454
